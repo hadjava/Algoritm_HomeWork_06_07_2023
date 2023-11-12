@@ -1,0 +1,62 @@
+/*
+Домашнее задание 4. 
+Имея два отсортированных массива размера m и n соответственно, вам нужно найти элемент, который будет находиться на k-й позиции в конечном отсортированном массиве.
+Массив 1 - 100 112 256 349 770
+Массив 2 - 72 86 113 119 265 445 892
+к = 7
+Вывод : 256
+Окончательный отсортированный массив -
+72, 86, 100, 112, 113, 119, 256, 265, 349, 445, 770, 892
+7-й элемент этого массива равен 256.
+
+*/
+
+
+public class KthElementInSortedArrays {
+    public static int findKthElement(int[] array1, int[] array2, int k) {
+        int m = array1.length;
+        int n = array2.length;
+        int index1 = 0, index2 = 0;
+
+        while (index1 < m && index2 < n) {
+            if (array1[index1] <= array2[index2]) {
+                if (index1 + index2 == k - 1) {
+                    return array1[index1];
+                }
+                index1++;
+            } else {
+                if (index1 + index2 == k - 1) {
+                    return array2[index2];
+                }
+                index2++;
+            }
+        }
+
+        // Если один из массивов закончился, продолжаем с другим
+        while (index1 < m) {
+            if (index1 + index2 == k - 1) {
+                return array1[index1];
+            }
+            index1++;
+        }
+
+        while (index2 < n) {
+            if (index1 + index2 == k - 1) {
+                return array2[index2];
+            }
+            index2++;
+        }
+
+        // Недостижимый код, так как k должно быть в пределах длины объединенного массива.
+        return -1;
+    }
+
+    public static void main(String[] args) {
+        int[] array1 = {100, 112, 256, 349, 770};
+        int[] array2 = {72, 86, 113, 119, 265, 445, 892};
+        int k = 7;
+
+        int result = findKthElement(array1, array2, k);
+        System.out.println("Kth Element: " + result);
+    }
+}
